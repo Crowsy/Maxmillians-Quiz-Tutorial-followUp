@@ -10,7 +10,6 @@ import './answer.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -31,8 +30,18 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var questions = [
-      'What\'s your favorite color ?',
-      ' What\'s your favorite animal?'
+      {
+        'questionText': 'What\'s your favorite color ?',
+        'answers': ['Black', 'Red', 'Green', 'White'],
+      },
+      {
+        'questionText': 'What\'s your favorite animal?',
+        'answers': ['Rabbit', 'Snake', 'Elephant', 'Lion'],
+      },
+      {
+        'questionText': 'Who\'s your favorite Person',
+        'answers': ['Rick', 'Rick', 'Rick', 'OrRick'],
+      },
     ];
     return MaterialApp(
       home: Scaffold(
@@ -42,11 +51,11 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Question(
-              questions[_questionIndex],
+              questions[_questionIndex]['questionText'],
             ),
-            Answer(),   ///those are errors
-            Answer(),   ///those are errors
-            Answer(),   ///those are errors
+            ...(questions[_questionIndex]['answers'] as List<String>).map((answer) {
+              return Answer(_answerQuestion, answer);   /// Having an error here.
+            }).toList()
           ],
         ),
       ),
